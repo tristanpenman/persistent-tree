@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name        = 'persistent_tree'
-  s.version     = '0.0.0'
-  s.date        = '2015-03-25'
+  s.version     = '0.0.1'
+  s.date        = '2021-06-04'
   s.summary     = 'Partially Persistent Tree for Ruby'
   s.description = "Partially Persistent Tree, based on Okasaki's thesis 'Purely Functional Data Structures'"
   s.authors     = ['Tristan Penman']

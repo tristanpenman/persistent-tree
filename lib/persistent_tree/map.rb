@@ -79,7 +79,8 @@ module PersistentTree
     end
 
     def fetch(*args)
-      raise ArgumentError, "wrong number of arguments (#{args.length} for 1..2)" unless args.length.between?(1, 2)
+      raise ArgumentError, "wrong number of arguments (#{args.length} for 1..2)" \
+        unless args.length.between?(1, 2)
 
       warn('block supersedes default value argument') if args.length == 2 && block_given?
 
@@ -240,7 +241,8 @@ module PersistentTree
     def version(*args)
       if args.length == 1
         requested_version = args[0]
-        raise TypeError, 'requested version should be an integer' unless requested_version.is_a? Integer
+        raise TypeError, 'requested version should be an integer' \
+          unless requested_version.is_a? Integer
 
         raise RangeError, "requested version (#{requested_version}) exceeds current version (#{@tree.version})" \
           if requested_version > @tree.version

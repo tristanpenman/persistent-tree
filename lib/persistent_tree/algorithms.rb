@@ -48,10 +48,12 @@ module PersistentTree
       end
 
       ##
-      # Inserts a value into a partially-persistent tree rooted at the given node, creating a new version of the tree
+      # Inserts a value into a partially-persistent tree rooted at the given node, creating a new
+      # version of the tree
       #
-      # This method allows existing values to be replaced. Note that this will result in a new version of the tree
-      # being created, in which the new item takes the place of the existing item.
+      # This method allows existing values to be replaced. Note that this will result in a new
+      # version of the tree being created, in which the new item takes the place of the existing
+      # item.
       #
       # Returns the root node that should be used for queries on the new version of the tree.
       #
@@ -60,7 +62,8 @@ module PersistentTree
       end
 
       ##
-      # Inserts a value into a partially-persistent tree rooted at the given node, creating a new version of the tree
+      # Inserts a value into a partially-persistent tree rooted at the given node, creating a new
+      # version of the tree
       #
       # Existing items will **not** be replaced.
       #
@@ -114,9 +117,10 @@ module PersistentTree
             parent_node = current_node
             current_node = current_node.get_right_child(root_version)
           elsif options[:allow_replacement]
-            leaf_node = PersistentTree::Node.with_no_mods(current_node.get_left_child(root_version),
-                                                          current_node.get_right_child(root_version),
-                                                          item)
+            leaf_node = \
+              PersistentTree::Node.with_no_mods(current_node.get_left_child(root_version),
+                                                current_node.get_right_child(root_version),
+                                                item)
             break
           else
             raise KeyError, 'Item already exists in latest version of tree'
@@ -132,9 +136,10 @@ module PersistentTree
           if current_node.value > item
             if current_node.modified?
               # Create a new parent node, which will be the leaf node on the next iteration
-              leaf_node = PersistentTree::Node.with_no_mods(leaf_node,
-                                                            current_node.get_right_child(root_version),
-                                                            current_node.value)
+              leaf_node = \
+                PersistentTree::Node.with_no_mods(leaf_node,
+                                                  current_node.get_right_child(root_version),
+                                                  current_node.value)
               current_node = current_node.parent
             else
               current_node.mod_left_child(leaf_node, root_version + 1)
@@ -152,8 +157,8 @@ module PersistentTree
           end
         end
 
-        # When the tree has been modified up to the root, as is the case when the loop above terminates naturally,
-        # leaf_node will contain a reference to the new root node
+        # When the tree has been modified up to the root, as is the case when the loop above
+        # terminates naturally, leaf_node will contain a reference to the new root node
         leaf_node
       end
     end

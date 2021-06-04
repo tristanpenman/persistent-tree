@@ -2,14 +2,15 @@ module PersistentTree
   ##
   # Represents a partially-persistent tree
   #
-  # This class behaves somewhat like an Aggregate (see Evans' Domain-Driven Design) in that the individual items
-  # stored in the tree should only be accessed via its public interface.
+  # This class behaves somewhat like an Aggregate (see Evans' Domain-Driven Design) in that the
+  # individual items stored in the tree should only be accessed via its public interface.
   #
-  # The actual classes and algorithms used to implement the tree can be found outside of this class. Nodes in the tree
-  # are represented by instances of the Node class, which attempts to maintain various tree invariants. The algorithms
-  # used to insert, remove and find items in the tree are implemented in Algorithms module. These implementation
-  # details have been made public so that they can be tested more effectively, while allowing the Tree class to
-  # provide a high level of encapsulation.
+  # The actual classes and algorithms used to implement the tree can be found outside of this
+  # class. Nodes in the tree are represented by instances of the Node class, which attempts to
+  # maintain various tree invariants. The algorithms used to insert, remove and find items in the
+  # tree are implemented in Algorithms module. These implementation details have been made public
+  # so that they can be tested more effectively, while allowing the Tree class to provide a high
+  # degree of encapsulation.
   #
   class Tree
     ##
@@ -76,7 +77,7 @@ module PersistentTree
     end
 
     ##
-    # Insert an item into the tree, replacing an existing item if there is an equal item in the tree
+    # Insert an item into the tree, replacing an existing item if an equal item is found
     #
     def insert_or_replace(item)
       @versions << if @versions.empty?
@@ -116,7 +117,7 @@ module PersistentTree
       raise TypeError, 'Expected non-negative integer but got: nil' unless value
 
       value_as_str = value.to_s
-      raise TypeError, "Expected value that could be parsed as an integer but got value of type: #{value.class}" \
+      raise TypeError, "Expected integer value but got value of type: #{value.class}" \
         unless /\A-?\d+\z/.match?(value_as_str)
 
       value_as_int = value_as_str.to_i

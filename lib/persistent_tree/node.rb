@@ -89,8 +89,8 @@ module PersistentTree
     ##
     # Return a Node's left child
     #
-    # If the Node has been modified *and* the requested version is greater than or equal to the version in which
-    # it was modified, then the updated child Node will be returned.
+    # If the Node has been modified *and* the requested version is greater than or equal to the
+    # version in which it was modified, then the updated child Node will be returned.
     #
     # In all other cases, the original left child Node will be returned.
     #
@@ -105,8 +105,8 @@ module PersistentTree
     ##
     # Return a Node's right child
     #
-    # If the Node has been modified *and* the requested version is greater than or equal to the version in which
-    # it was modified, then the updated child Node will be returned.
+    # If the Node has been modified *and* the requested version is greater than or equal to the
+    # version in which it was modified, then the updated child Node will be returned.
     #
     # In all other cases, the original right child Node will be returned.
     #
@@ -125,10 +125,12 @@ module PersistentTree
     ##
     # Update a Node with a new left child at a given version
     #
-    # A Node can only have one modification, so calling this method on an already-modified Node will raise an error
+    # A Node can only have one modification, so calling this method on an already-modified Node
+    # will raise an error
     #
     def mod_left_child(child, version)
-      raise ArgumentError, 'Modified left child would have value greater than parent node' if child.value > @value
+      raise ArgumentError, 'Modified left child would have value greater than parent node' \
+        if child.value > @value
 
       raise InvariantViolationError, 'Node already contains a modification' if @mod
 
@@ -139,10 +141,12 @@ module PersistentTree
     ##
     # Update a Node with a new right child at a given version
     #
-    # A Node can only have one modification, so calling this method on an already-modified Node will raise an error
+    # A Node can only have one modification, so calling this method on an already-modified Node
+    # will raise an error
     #
     def mod_right_child(child, version)
-      raise ArgumentError, 'Modified right child would have value less than parent node' if child.value < @value
+      raise ArgumentError, 'Modified right child would have value less than parent node' \
+        if child.value < @value
 
       raise InvariantViolationError, 'Node already contains a modification' if @mod
 

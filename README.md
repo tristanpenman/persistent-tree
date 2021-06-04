@@ -35,9 +35,9 @@ This gem is still very much a work-in-progress. Just off the top of the my head,
 * Performance is currently unmeasured
 * RSpec tests are provided, but coverage is weak for the underlying Tree class
 * No form of fuzzing has been conducted, so input validation should be considered untested
-* Gem has not yet been published on rubygems.org, so deployment may be difficult
 
 ## License ##
 
-MIT License. Copyright 2015 Tristan Penman.
+This code is licensed under the MIT License.
 
+See the LICENSE file for more information.
