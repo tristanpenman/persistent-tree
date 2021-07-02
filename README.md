@@ -1,12 +1,12 @@
 # Persistent Tree
 
-## Overview ##
+## Overview
 
 The goal of this gem is to provide a Partially-Persistent Tree implementation for Ruby. A Partially-Persistent Tree can be used to efficiently maintain and access previous versions of tree-based data structures, such as Maps and Sets.
 
 This work is based on Okasaki's thesis *[Purely Functional Data Structures](http://www.cs.cmu.edu/~rwh/theses/okasaki.pdf)* and lectures available online for the MIT *[Advanced Data Structures](https://courses.csail.mit.edu/6.851/)* course.
 
-## Design ##
+## Design
 
 The PersistentTree::Map class provides an interface that is designed to mimic Ruby's built-in Hash class. That is to say that using a PersistentTree::Map in place of a Hash should be completely unsurprising.
 
@@ -27,7 +27,7 @@ A user of this library might use it like so:
     m.store('k', 'w')             # Returns stored value ('w')
     m.version(1).fetch('k')       # Returns stored value in version 1 ('v')
 
-## Shortcomings ##
+## Shortcomings
 
 This gem is still very much a work-in-progress. Just off the top of the my head, any user of this gem should be aware of the following limitations and shortcomings:
 
@@ -36,7 +36,7 @@ This gem is still very much a work-in-progress. Just off the top of the my head,
 * RSpec tests are provided, but coverage is weak for the underlying Tree class
 * No form of fuzzing has been conducted, so input validation should be considered untested
 
-## License ##
+## License
 
 This code is licensed under the MIT License.
 
