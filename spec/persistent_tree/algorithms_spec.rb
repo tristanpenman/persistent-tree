@@ -10,8 +10,10 @@ describe PersistentTree::Algorithms do
     #
     context 'root node with no children or modifications' do
       let!(:root_node) { PersistentTree::Node.with_no_mods(nil, nil, 4) }
+
       context 'search for a value in the tree (4) at version 1' do
         let!(:result) { described_class.find(root_node, 1, 4) }
+
         it 'returns the correct value' do
           expect(result.value).to eq(4)
         end
@@ -40,6 +42,7 @@ describe PersistentTree::Algorithms do
       [3, 4].each do |value|
         context "search for a value in the tree (#{value}) at version 1" do
           let!(:result) { described_class.find(root_node, 1, value) }
+
           it 'returns the correct value' do
             expect(result.value).to eq(value)
           end
@@ -69,6 +72,7 @@ describe PersistentTree::Algorithms do
       [4, 5].each do |value|
         context "search for a value in the tree (#{value}) at version 1" do
           let!(:result) { described_class.find(root_node, 1, value) }
+
           it 'returns the correct value' do
             expect(result.value).to eq(value)
           end
@@ -99,6 +103,7 @@ describe PersistentTree::Algorithms do
       [3, 4, 5].each do |value|
         context "search for a value in the tree (#{value}) at version 1" do
           let!(:result) { described_class.find(root_node, 1, value) }
+
           it 'returns the correct value' do
             expect(result.value).to eq(value)
           end
@@ -130,6 +135,7 @@ describe PersistentTree::Algorithms do
       [3, 4, 5].each do |value|
         context "search for a value in the tree (#{value}) at version 1" do
           let!(:result) { described_class.find(root_node, 1, value) }
+
           it 'returns the correct value' do
             expect(result.value).to eq(value)
           end
@@ -147,6 +153,7 @@ describe PersistentTree::Algorithms do
       [2, 4, 5].each do |value|
         context "search for a value in the tree (#{value}) at version 2" do
           let!(:result) { described_class.find(root_node, 2, value) }
+
           it 'returns the correct value' do
             expect(result.value).to eq(value)
           end
@@ -178,6 +185,7 @@ describe PersistentTree::Algorithms do
       [3, 4, 5].each do |value|
         context "search for a value in the tree (#{value}) at version 1" do
           let!(:result) { described_class.find(root_node, 1, value) }
+
           it 'returns the correct value' do
             expect(result.value).to eq(value)
           end
@@ -195,6 +203,7 @@ describe PersistentTree::Algorithms do
       [3, 4, 6].each do |value|
         context "search for a value in the tree (#{value}) at version 2" do
           let!(:result) { described_class.find(root_node, 2, value) }
+
           it 'returns the correct value' do
             expect(result.value).to eq(value)
           end
@@ -288,7 +297,7 @@ describe PersistentTree::Algorithms do
 
       it 'stores the value in a new node in the left sub-tree of the root node at version 2' do
         left_child = root_node.get_left_child(2)
-        expect(left_child).to_not be_nil
+        expect(left_child).not_to be_nil
         expect(left_child.value).to eq(inserted_value)
       end
 
@@ -343,7 +352,7 @@ describe PersistentTree::Algorithms do
 
       it 'modifies the left sub-tree of the original left child (grand-child of root node) at version 2' do
         actual_left_grand_child = root_node.get_left_child(2).get_left_child(2)
-        expect(actual_left_grand_child).to_not be_nil
+        expect(actual_left_grand_child).not_to be_nil
         expect(actual_left_grand_child.value).to eq(inserted_value)
       end
     end
@@ -389,7 +398,7 @@ describe PersistentTree::Algorithms do
 
       it 'modifies the right sub-tree of the original left child (grand-child of root node) at version 2' do
         actual_grand_child = root_node.get_left_child(2).get_right_child(2)
-        expect(actual_grand_child).to_not be_nil
+        expect(actual_grand_child).not_to be_nil
         expect(actual_grand_child.value).to eq(inserted_value)
       end
     end
@@ -428,7 +437,7 @@ describe PersistentTree::Algorithms do
 
       it 'stores the value in a new node in the right sub-tree of the root node at version 2' do
         right_child = root_node.get_right_child(2)
-        expect(right_child).to_not be_nil
+        expect(right_child).not_to be_nil
         expect(right_child.value).to eq(inserted_value)
       end
     end
@@ -474,7 +483,7 @@ describe PersistentTree::Algorithms do
 
       it 'modifies the left sub-tree of the original right child (grand-child of root node) at version 2' do
         actual_grand_child = root_node.get_right_child(2).get_left_child(2)
-        expect(actual_grand_child).to_not be_nil
+        expect(actual_grand_child).not_to be_nil
         expect(actual_grand_child.value).to eq(inserted_value)
       end
     end
@@ -501,7 +510,7 @@ describe PersistentTree::Algorithms do
       end
 
       it 'the root node has not been modified' do
-        expect(returned_node.modified?).to be_falsey
+        expect(returned_node).not_to be_modified
       end
 
       [1, 2].each do |version|
@@ -523,7 +532,7 @@ describe PersistentTree::Algorithms do
 
       it 'modifies the right sub-tree of the original right child (grand-child of root node) at version 2' do
         actual_right_grand_child = root_node.get_right_child(2).get_right_child(2)
-        expect(actual_right_grand_child).to_not be_nil
+        expect(actual_right_grand_child).not_to be_nil
         expect(actual_right_grand_child.value).to eq(inserted_value)
       end
     end
@@ -549,7 +558,7 @@ describe PersistentTree::Algorithms do
       let!(:returned_node) { described_class.insert(root_node, 4, inserted_value) }
 
       it 'returns a new root node' do
-        expect(returned_node).to_not eq(root_node)
+        expect(returned_node).not_to eq(root_node)
       end
 
       it 'the returned root node has the correct value' do
@@ -557,7 +566,7 @@ describe PersistentTree::Algorithms do
       end
 
       it 'the returned root node to have not been modified' do
-        expect(returned_node.modified?).to be_falsey
+        expect(returned_node).not_to be_modified
       end
 
       (4..5).each do |version|
@@ -568,7 +577,7 @@ describe PersistentTree::Algorithms do
         end
 
         it "the left child of the returned root node does not have a modification at version #{version}" do
-          expect(returned_node.get_left_child(version).modified?).to be_falsey
+          expect(returned_node.get_left_child(version)).not_to be_modified
         end
 
         # The right sub-tree should not have been modified
@@ -577,7 +586,7 @@ describe PersistentTree::Algorithms do
         end
 
         it "the right child should not have any modification at #{version}" do
-          expect(returned_node.get_right_child(version).modified?).to be_falsey
+          expect(returned_node.get_right_child(version)).not_to be_modified
         end
       end
     end
@@ -603,7 +612,7 @@ describe PersistentTree::Algorithms do
       let!(:returned_node) { described_class.insert(root_node, 4, inserted_value) }
 
       it 'returns a new root node' do
-        expect(returned_node).to_not eq(root_node)
+        expect(returned_node).not_to eq(root_node)
       end
 
       it 'the returned root node has the correct value' do
@@ -611,7 +620,7 @@ describe PersistentTree::Algorithms do
       end
 
       it 'the returned root node to have not been modified' do
-        expect(returned_node.modified?).to be_falsey
+        expect(returned_node).not_to be_modified
       end
 
       (4..5).each do |version|
@@ -621,7 +630,7 @@ describe PersistentTree::Algorithms do
         end
 
         it "the left child should not have any modification at #{version}" do
-          expect(returned_node.get_left_child(version).modified?).to be_falsey
+          expect(returned_node.get_left_child(version)).not_to be_modified
         end
 
         # Since the new tree has no knowledge of previous versions, we expect it to contain the return the newly
@@ -631,7 +640,7 @@ describe PersistentTree::Algorithms do
         end
 
         it "the right child of the returned root node does not have a modification at version #{version}" do
-          expect(returned_node.get_right_child(version).modified?).to be_falsey
+          expect(returned_node.get_right_child(version)).not_to be_modified
         end
       end
     end
@@ -658,7 +667,7 @@ describe PersistentTree::Algorithms do
       let!(:returned_node) { described_class.insert(root_node, 3, inserted_value) }
 
       it 'returns a new root node' do
-        expect(returned_node).to_not eq(root_node)
+        expect(returned_node).not_to eq(root_node)
       end
 
       it 'returns a new root node with the correct value' do
@@ -666,7 +675,7 @@ describe PersistentTree::Algorithms do
       end
 
       it 'returns a new root node with no modifications' do
-        expect(returned_node.modified?).to be_falsey
+        expect(returned_node).not_to be_modified
       end
 
       (1..4).each do |version|
@@ -675,15 +684,15 @@ describe PersistentTree::Algorithms do
         end
 
         it "the left child of the new root node is also a new node at version #{version}" do
-          expect(returned_node.get_left_child(version)).to_not eq(left_child)
+          expect(returned_node.get_left_child(version)).not_to eq(left_child)
         end
 
         it "the left child of the new root node does not have any modifications at version #{version}" do
-          expect(returned_node.get_left_child(version).modified?).to be_falsey
+          expect(returned_node.get_left_child(version)).not_to be_modified
         end
 
         it "the left-most grand child should be set at version #{version}" do
-          expect(returned_node.get_left_child(version).get_left_child(version)).to_not be_nil
+          expect(returned_node.get_left_child(version).get_left_child(version)).not_to be_nil
         end
 
         it "the left-most grand child has the correct value at version #{version}" do
@@ -691,7 +700,7 @@ describe PersistentTree::Algorithms do
         end
 
         it "the right-most grand child should be set at version #{version}" do
-          expect(returned_node.get_left_child(version).get_right_child(version)).to_not be_nil
+          expect(returned_node.get_left_child(version).get_right_child(version)).not_to be_nil
         end
 
         it "the right-most grand child has the correct value at version #{version}" do
@@ -699,7 +708,7 @@ describe PersistentTree::Algorithms do
         end
 
         it "the right-most grand child has no modification at version #{version}" do
-          expect(returned_node.get_left_child(version).get_right_child(version).modified?).to be_falsey
+          expect(returned_node.get_left_child(version).get_right_child(version)).not_to be_modified
         end
       end
     end
@@ -726,7 +735,7 @@ describe PersistentTree::Algorithms do
       let!(:returned_node) { described_class.insert(root_node, 3, inserted_value) }
 
       it 'returns a new root node' do
-        expect(returned_node).to_not eq(root_node)
+        expect(returned_node).not_to eq(root_node)
       end
 
       it 'returns a new root node with the correct value' do
@@ -734,7 +743,7 @@ describe PersistentTree::Algorithms do
       end
 
       it 'returns a new root node with no modifications' do
-        expect(returned_node.modified?).to be_falsey
+        expect(returned_node).not_to be_modified
       end
 
       (1..4).each do |version|
@@ -743,15 +752,15 @@ describe PersistentTree::Algorithms do
         end
 
         it "the left child of the new root node is also a new node at version #{version}" do
-          expect(returned_node.get_left_child(version)).to_not eq(left_child)
+          expect(returned_node.get_left_child(version)).not_to eq(left_child)
         end
 
         it "the left child of the new root node does not have any modifications at version #{version}" do
-          expect(returned_node.get_left_child(version).modified?).to be_falsey
+          expect(returned_node.get_left_child(version)).not_to be_modified
         end
 
         it "the left-most grand child should be set at version #{version}" do
-          expect(returned_node.get_left_child(version).get_left_child(version)).to_not be_nil
+          expect(returned_node.get_left_child(version).get_left_child(version)).not_to be_nil
         end
 
         it "the left-most grand child has the correct value at version #{version}" do
@@ -759,11 +768,11 @@ describe PersistentTree::Algorithms do
         end
 
         it "the left-most grand child has no modification at version #{version}" do
-          expect(returned_node.get_left_child(version).get_left_child(version).modified?).to be_falsey
+          expect(returned_node.get_left_child(version).get_left_child(version)).not_to be_modified
         end
 
         it "the right-most grand child should be set at version #{version}" do
-          expect(returned_node.get_left_child(version).get_right_child(version)).to_not be_nil
+          expect(returned_node.get_left_child(version).get_right_child(version)).not_to be_nil
         end
 
         it "the right-most grand child has the correct value at version #{version}" do
@@ -794,7 +803,7 @@ describe PersistentTree::Algorithms do
       let!(:returned_node) { described_class.insert(root_node, 3, inserted_value) }
 
       it 'returns a new root node' do
-        expect(returned_node).to_not eq(root_node)
+        expect(returned_node).not_to eq(root_node)
       end
 
       it 'returns a new root node with the correct value' do
@@ -802,7 +811,7 @@ describe PersistentTree::Algorithms do
       end
 
       it 'returns a new root node with no modifications' do
-        expect(returned_node.modified?).to be_falsey
+        expect(returned_node).not_to be_modified
       end
 
       (1..4).each do |version|
@@ -811,15 +820,15 @@ describe PersistentTree::Algorithms do
         end
 
         it "the right child of the new root node is also a new node at version #{version}" do
-          expect(returned_node.get_right_child(version)).to_not eq(right_child)
+          expect(returned_node.get_right_child(version)).not_to eq(right_child)
         end
 
         it "the right child of the new root node does not have any modifications at version #{version}" do
-          expect(returned_node.get_right_child(version).modified?).to be_falsey
+          expect(returned_node.get_right_child(version)).not_to be_modified
         end
 
         it "the left-most grand child should be set at version #{version}" do
-          expect(returned_node.get_right_child(version).get_left_child(version)).to_not be_nil
+          expect(returned_node.get_right_child(version).get_left_child(version)).not_to be_nil
         end
 
         it "the left-most grand child has the correct value at version #{version}" do
@@ -827,7 +836,7 @@ describe PersistentTree::Algorithms do
         end
 
         it "the right-most grand child should be set at version #{version}" do
-          expect(returned_node.get_right_child(version).get_right_child(version)).to_not be_nil
+          expect(returned_node.get_right_child(version).get_right_child(version)).not_to be_nil
         end
 
         it "the right-most grand child has the correct value at version #{version}" do
@@ -835,7 +844,7 @@ describe PersistentTree::Algorithms do
         end
 
         it "the right-most grand child has no modification at version #{version}" do
-          expect(returned_node.get_right_child(version).get_right_child(version).modified?).to be_falsey
+          expect(returned_node.get_right_child(version).get_right_child(version)).not_to be_modified
         end
       end
     end
@@ -862,7 +871,7 @@ describe PersistentTree::Algorithms do
       let!(:returned_node) { described_class.insert(root_node, 3, inserted_value) }
 
       it 'returns a new root node' do
-        expect(returned_node).to_not eq(root_node)
+        expect(returned_node).not_to eq(root_node)
       end
 
       it 'returns a new root node with the correct value' do
@@ -870,7 +879,7 @@ describe PersistentTree::Algorithms do
       end
 
       it 'returns a new root node with no modifications' do
-        expect(returned_node.modified?).to be_falsey
+        expect(returned_node).not_to be_modified
       end
 
       (1..4).each do |version|
@@ -879,15 +888,15 @@ describe PersistentTree::Algorithms do
         end
 
         it "the right child of the new root node is also a new node at version #{version}" do
-          expect(returned_node.get_right_child(version)).to_not eq(right_child)
+          expect(returned_node.get_right_child(version)).not_to eq(right_child)
         end
 
         it "the right child of the new root node does not have any modifications at version #{version}" do
-          expect(returned_node.get_right_child(version).modified?).to be_falsey
+          expect(returned_node.get_right_child(version)).not_to be_modified
         end
 
         it "the left-most grand child should be set at version #{version}" do
-          expect(returned_node.get_right_child(version).get_left_child(version)).to_not be_nil
+          expect(returned_node.get_right_child(version).get_left_child(version)).not_to be_nil
         end
 
         it "the left-most grand child has the correct value at version #{version}" do
@@ -895,7 +904,7 @@ describe PersistentTree::Algorithms do
         end
 
         it "the right-most grand child should be set at version #{version}" do
-          expect(returned_node.get_right_child(version).get_right_child(version)).to_not be_nil
+          expect(returned_node.get_right_child(version).get_right_child(version)).not_to be_nil
         end
 
         it "the right-most grand child has the correct value at version #{version}" do
@@ -903,7 +912,7 @@ describe PersistentTree::Algorithms do
         end
 
         it "the right-most grand child has no modification at version #{version}" do
-          expect(returned_node.get_right_child(version).get_right_child(version).modified?).to be_falsey
+          expect(returned_node.get_right_child(version).get_right_child(version)).not_to be_modified
         end
       end
     end
@@ -936,11 +945,11 @@ describe PersistentTree::Algorithms do
       let!(:returned_node) { described_class.insert!(root_node, 1, inserted_value) }
 
       it 'returns a node' do
-        expect(returned_node).to_not be_nil
+        expect(returned_node).not_to be_nil
       end
 
       it 'returns a node that is not the same as the existing root node' do
-        expect(returned_node).to_not eq(root_node)
+        expect(returned_node).not_to eq(root_node)
       end
 
       it 'returns a node whose value is the new updated value' do
@@ -956,11 +965,11 @@ describe PersistentTree::Algorithms do
       end
 
       it 'find returns the previous value at version 1' do
-        expect(PersistentTree::Algorithms.find(root_node, 1, 10).value).to eq(root_value)
+        expect(described_class.find(root_node, 1, 10).value).to eq(root_value)
       end
 
       it 'find returns the current value at version 2' do
-        expect(PersistentTree::Algorithms.find(root_node, 2, 10).value).to eq(inserted_value)
+        expect(described_class.find(root_node, 2, 10).value).to eq(inserted_value)
       end
     end
   end

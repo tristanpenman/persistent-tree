@@ -19,7 +19,7 @@ describe PersistentTree::Node do
       let!(:node) { described_class.with_left_mod(left_v1, nil, 6, left_v2, 2) }
 
       it 'returns the node corresponding to the original left sub-tree at version 1' do
-        expect(node. get_left_child(1)).to eq(left_v1)
+        expect(node.get_left_child(1)).to eq(left_v1)
       end
 
       (2..3).each do |version|

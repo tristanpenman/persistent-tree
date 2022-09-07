@@ -1,6 +1,13 @@
 inherit_from: .rubocop_todo.yml
 
-Metrics/LineLength:
+require:
+ - rubocop-rake
+ - rubocop-rspec
+
+AllCops:
+    NewCops: enable
+
+Layout/LineLength:
   Max: 120
 
 Style/ConditionalAssignment:

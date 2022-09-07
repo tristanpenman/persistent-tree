@@ -26,7 +26,7 @@ describe PersistentTree::Tree do
       end
 
       it 'yields no values when each is called' do
-        expect { |b| tree.each(0, &b) }.to_not yield_control
+        expect { |b| tree.each(0, &b) }.not_to yield_control
       end
     end
 
@@ -66,7 +66,7 @@ describe PersistentTree::Tree do
       end
 
       it 'yields no values when each is called at version 0' do
-        expect { |b| tree.each(0, &b) }.to_not yield_control
+        expect { |b| tree.each(0, &b) }.not_to yield_control
       end
 
       it 'yields exactly once, with the expected value, when each is called at version 1' do
@@ -130,7 +130,7 @@ describe PersistentTree::Tree do
       end
 
       it 'yields no values when each is called at version 0' do
-        expect { |b| tree.each(0, &b) }.to_not yield_control
+        expect { |b| tree.each(0, &b) }.not_to yield_control
       end
 
       it 'yields correct array of values at subsequent versions' do
