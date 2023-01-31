@@ -26,9 +26,6 @@ module PersistentTree
     public
 
     attr_reader :parent
-    attr_reader :left_child
-    attr_reader :right_child
-    attr_reader :mod
 
     ##
     # Private constructor to initialise a Node
@@ -125,6 +122,14 @@ module PersistentTree
       @mod != nil
     end
 
+    def mod_left?
+      @mod&.left == true
+    end
+
+    def mod_version
+      @mod&.version
+    end
+
     ##
     # Update a Node with a new left child at a given version
     #
@@ -155,6 +160,14 @@ module PersistentTree
 
       @mod = Mod.new(false, child, version)
       child.parent = self
+    end
+
+    def original_left_child
+      @left_child
+    end
+
+    def original_right_child
+      @right_child
     end
   end
 end

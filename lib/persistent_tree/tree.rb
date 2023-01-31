@@ -22,8 +22,8 @@ module PersistentTree
       @versions = []
     end
 
-    def dump
-      PersistentTree::Dot.dump_tree(@versions.last, version)
+    def dump(complete = false)
+      PersistentTree::Dot.dump_tree(@versions.last, version, complete)
     end
 
     ##
