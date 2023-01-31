@@ -6,11 +6,11 @@ This work is based on Okasaki's thesis *[Purely Functional Data Structures](http
 
 ## Design
 
-The PersistentTree::Map class provides an interface that is designed to mimic Ruby's built-in Hash class. That is to say that using a PersistentTree::Map in place of a Hash should be completely unsurprising.
+The `PersistentTree::Map` class provides an interface that is designed to mimic Ruby's built-in Hash class. That is to say that using a `PersistentTree::Map` in place of a Hash should be completely unsurprising.
 
 As a Partially-Persistent data structure, each update to a Map results in a new version of the Map being spawned using an approach that is memory efficient relative to the number of key-value pairs in the Map. Previous versions of a Map are accessible through read-only 'views' of the data structure.
 
-A PersistentTree::Map object provides a method called 'version' that, when called with no arguments, returns the current version. When called with one argument (a version number), it will return a view of the Map at that version.
+A `PersistentTree::Map` object provides a method called 'version' that, when called with no arguments, returns the current version. When called with one argument (a version number), it will return a view of the Map at that version.
 
 A user of this library might use it like so:
 
