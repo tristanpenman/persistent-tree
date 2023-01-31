@@ -58,8 +58,8 @@ module PersistentTree
       end
     end
 
-    def dump
-      @tree.dump
+    def dump(complete = false)
+      @tree.dump(complete)
     end
 
     def each

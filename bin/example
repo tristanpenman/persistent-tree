@@ -7,15 +7,16 @@ require 'persistent_tree'
 
 m = PersistentTree::Map.new
 
-def tmp_path(ver)
-  File.join(File.dirname(__FILE__), '..', 'tmp', "v#{ver}.dot")
+def tmp_path(ver, complete)
+  File.join(File.dirname(__FILE__), '..', 'tmp', "v#{ver}#{complete ? '-complete' : ''}.dot")
 end
 
-def dump(map)
-  File.write(tmp_path(map.version), map.dump)
+def dump(map, complete)
+  File.write(tmp_path(map.version, complete), map.dump(complete))
 end
 
 ('a'..'n').to_a.shuffle.each do |letter|
   m[letter] = letter.upcase
-  dump(m)
+  dump(m, false)
+  dump(m, true)
 end
