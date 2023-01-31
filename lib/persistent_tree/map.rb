@@ -58,6 +58,10 @@ module PersistentTree
       end
     end
 
+    def dump
+      @tree.dump
+    end
+
     def each
       if block_given?
         @tree.each(@version) do |item|

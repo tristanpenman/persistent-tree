@@ -1,0 +1,22 @@
+#!/usr/bin/env ruby
+
+# Add lib directory to front of include path
+$LOAD_PATH.unshift File.join(File.dirname(__FILE__), *%w[.. lib])
+
+require 'persistent_tree'
+
+m = PersistentTree::Map.new
+
+def tmp_path(ver)
+  File.join(File.dirname(__FILE__), '..', 'tmp', "v#{ver}.dot")
+end
+
+def dump(map)
+  File.write(tmp_path(map.version), map.dump)
+end
+
+('a'...'z').to_a.shuffle.each do |letter|
+  m[letter] = letter.upcase
+end
+
+dump(m)

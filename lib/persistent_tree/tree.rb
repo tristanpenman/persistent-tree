@@ -1,3 +1,5 @@
+require_relative 'dot'
+
 module PersistentTree
   ##
   # Represents a partially-persistent tree
@@ -18,6 +20,10 @@ module PersistentTree
     #
     def initialize
       @versions = []
+    end
+
+    def dump
+      PersistentTree::Dot.dump_tree(@versions.last, version)
     end
 
     ##
@@ -100,11 +106,9 @@ module PersistentTree
       raise RangeError, 'Requested version does not exist' if version > @versions.size
 
       # Early exit if version zero is requested
-      if version.zero?
-        0
-      else
-        Algorithms.size(@versions[version - 1], version)
-      end
+      return 0 if version.zero?
+
+      Algorithms.size(@versions[version - 1], version)
     end
 
     def version
