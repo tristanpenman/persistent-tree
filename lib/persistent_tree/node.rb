@@ -26,6 +26,9 @@ module PersistentTree
     public
 
     attr_reader :parent
+    attr_reader :left_child
+    attr_reader :right_child
+    attr_reader :mod
 
     ##
     # Private constructor to initialise a Node

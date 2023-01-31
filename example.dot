@@ -1,0 +1,99 @@
+digraph g {
+rankdir="LR"
+"60" [
+  label = "<f0> h | <f1> L | <f2> R | { - | - }"
+  shape = "record"
+]
+
+"80" [
+  label = "<f0> g | <f1> L | <f2> R | { - | - }"
+  shape = "record"
+]
+
+"100" [
+  label = "<f0> f | <f1> L | <f2> R | { - | - }"
+  shape = "record"
+]
+
+"120" [
+  label = "<f0> c | <f1> L | <f2> R | { - | - }"
+  shape = "record"
+]
+
+"140" [
+  label = "<f0> b | <f1> L | <f2> R | { 13 | <f3> L }"
+  shape = "record"
+]
+
+"160" [
+  label = "<f0> a | <f1> L | <f2> R | { - | - }"
+  shape = "record"
+]
+
+"180" [
+  label = "<f0> e | <f1> L | <f2> R | { 11 | <f3> L }"
+  shape = "record"
+]
+
+"200" [
+  label = "<f0> d | <f1> L | <f2> R | { - | - }"
+  shape = "record"
+]
+
+"220" [
+  label = "<f0> l | <f1> L | <f2> R | { 12 | <f3> L }"
+  shape = "record"
+]
+
+"240" [
+  label = "<f0> j | <f1> L | <f2> R | { - | - }"
+  shape = "record"
+]
+
+"260" [
+  label = "<f0> i | <f1> L | <f2> R | { - | - }"
+  shape = "record"
+]
+
+"280" [
+  label = "<f0> k | <f1> L | <f2> R | { - | - }"
+  shape = "record"
+]
+
+"300" [
+  label = "<f0> m | <f1> L | <f2> R | { 14 | <f3> R }"
+  shape = "record"
+]
+
+"320" [
+  label = "<f0> n | <f1> L | <f2> R | { - | - }"
+  shape = "record"
+]
+
+"60":f1 -> "80":f0
+
+"80":f1 -> "100":f0
+
+"100":f1 -> "120":f0
+
+"120":f1 -> "140":f0
+
+"140":f3 -> "160":f0
+
+"120":f2 -> "180":f0
+
+"180":f3 -> "200":f0
+
+"60":f2 -> "220":f0
+
+"220":f3 -> "240":f0
+
+"240":f1 -> "260":f0
+
+"240":f2 -> "280":f0
+
+"220":f2 -> "300":f0
+
+"300":f3 -> "320":f0
+
+}

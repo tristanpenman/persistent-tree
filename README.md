@@ -27,12 +27,27 @@ A user of this library might use it like so:
 
 ## Shortcomings
 
-This gem is still very much a work-in-progress. Just off the top of the my head, any user of this gem should be aware of the following limitations and shortcomings:
+This gem is still very much a work-in-progress. Just off the top of my head, any user of this gem should be aware of the following limitations and shortcomings:
 
 * Deletion of key-value pairs is not supported - at least not in a way that will lead to new versions of the map being created
 * Performance is currently unmeasured
 * RSpec tests are provided, but coverage is weak for the underlying Tree class
 * No form of fuzzing has been conducted, so input validation should be considered untested
+
+## Graphviz
+
+The example script in [bin/example](bin/example) shows how the library can be used to visualise the persistent tree data structure. The script adds the letters 'a' to 'n' to a tree, in random order. After each addition, the tree representing the latest version is dumped to a file in the `tmp` directory. These are written in DOT format, and can be converted to PNG or PDF using `dot`:
+
+    dot -T pdf ./tmp/v14.dot > ./tmp/v14.pdf
+    dot -T png ./tmp/v14.dot > ./tmp/v14.png
+
+An example is shown here:
+
+![Graphviz Example](example.png)
+
+There is also a corresponding [example.pdf](./example.pdf).
+
+The way to interpret this is that the first field in a record is a node's key. After that are its left and right children. And the last field represents a 'mod' applied to that node. If the node has been modified, it shows the version corresponding to the modification, as well as the updated child pointer (either left or right).
 
 ## License
 

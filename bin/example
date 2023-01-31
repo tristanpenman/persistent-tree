@@ -15,8 +15,7 @@ def dump(map)
   File.write(tmp_path(map.version), map.dump)
 end
 
-('a'...'z').to_a.shuffle.each do |letter|
+('a'..'n').to_a.shuffle.each do |letter|
   m[letter] = letter.upcase
+  dump(m)
 end
-
-dump(m)

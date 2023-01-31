@@ -13,17 +13,29 @@ module PersistentTree
 
         left_child = node.get_left_child(version)
         if left_child
-          edges << <<~DOT
-            "#{node.object_id}":f0 -> "#{left_child.object_id}":f0
-          DOT
+          if node.modified? && node.mod.left
+            edges << <<~DOT
+              "#{node.object_id}":f3 -> "#{left_child.object_id}":f0
+            DOT
+          else
+            edges << <<~DOT
+              "#{node.object_id}":f1 -> "#{left_child.object_id}":f0
+            DOT
+          end
           edges += dump_edges(left_child, version)
         end
 
         right_child = node.get_right_child(version)
         if right_child
-          edges << <<~DOT
-            "#{node.object_id}":f0 -> "#{right_child.object_id}":f0
-          DOT
+          if node.modified? && !node.mod.left
+            edges << <<~DOT
+              "#{node.object_id}":f3 -> "#{right_child.object_id}":f0
+            DOT
+          else
+            edges << <<~DOT
+              "#{node.object_id}":f2 -> "#{right_child.object_id}":f0
+            DOT
+          end
           edges += dump_edges(right_child, version)
         end
 
@@ -33,10 +45,16 @@ module PersistentTree
       def dump_node(node, version)
         return [] unless node
 
+        mod = if node.modified?
+                "{ #{node.mod.version} | <f3> #{node.mod.left ? 'L' : 'R'} }"
+              else
+                '{ - | - }'
+              end
+
         nodes = [
           <<~DOT
             "#{node.object_id}" [
-              label = "<f0> #{node.value.key} | <f1>"
+              label = "<f0> #{node.value.key} | <f1> L | <f2> R | #{mod}"
               shape = "record"
             ]
           DOT
@@ -50,6 +68,7 @@ module PersistentTree
       def dump_tree(node, version)
         <<~DOT
           digraph g {
+          rankdir="LR"
           #{dump_node(node, version).join("\n")}
           #{dump_edges(node, version).join("\n")}
           }
