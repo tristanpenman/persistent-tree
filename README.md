@@ -49,6 +49,70 @@ There is also a corresponding [example.pdf](./example.pdf).
 
 The way to interpret this is that the first field in a record is a node's key. After that are its left and right children. And the last field represents a 'mod' applied to that node. If the node has been modified, it shows the version corresponding to the modification, as well as the updated child pointer (either left or right).
 
+### Step-by-step: Two Nodes
+
+Here's how to read the diagram, step-by-step.
+
+When we first add a node to the tree (e.g. with value 'B'), it looks like this:
+
+             ┌────(1)────┐
+    Root ───►│ Val = 'B' │
+    (v1)     ├───────────┤
+             │  L = nil  │
+             ├───────────┤
+             │  R = nil  │
+             ├─────┬─────┤
+             │  -  │  /  │
+             └─────┴─────┘
+
+The root (at version 1) points to the new node, and that's the entire tree. The `L` and `R` pointers for the node are both nil, because it has no children in version 1.
+
+When we add the value 'B' to the tree, this is what the tree looks like:
+
+             ┌────(1)────┐
+    Root ───►│ Val = 'B' │
+    (v2)     ├───────────┤
+             │  L = nil  │
+             ├───────────┤
+             │  R = nil  │
+             ├─────┬─────┤    ┌────(2)────┐
+             │  2  │  R  ├───►│ Val = 'C' │
+             └─────┴─────┘    ├───────────┤
+                              │     L     │
+                              ├───────────┤
+                              │     R     │
+                              ├─────┬─────┤
+                              │  -  │  -  │
+                              └─────┴─────┘
+
+The root still points at the original 'B' node. But now the 'B' node contains a modification. The modification says that, in version 2 of this node, it now has a right child (R), that points to node 'C'.
+
+If we wanted to query version 1 of the tree, we would still begin at the root. However we would only traverse node 'B', stopping when we see that it contains a modification for version 2.
+
+If instead we queried version 2 of the tree, we would traverse the modification.
+
+### Step-by-step: New Root
+
+Now we add another node, 'A', which would become the left child of 'B'.
+
+Node 'B' already contains a modification, so we cannot add another one. Instead, we create a _new_ node 'B', containing both pointers. The result is version 3 of the tree:
+
+             ┌────(3)────┐
+    Root ───►│ Val = 'B' │
+    (v3)     ├───────────┤                     ┌────(3)────┐
+             │  L = ...  ├────────────────────►│ Val = 'A' │
+             ├───────────┤    ┌────(2)────┐    ├───────────┤
+             │  R = ...  ├───►│ Val = 'C' │    │  L = nil  │
+             ├─────┬─────┤    ├───────────┤    ├───────────┤
+             │  -  │  /  │    │  L = nil  │    │  R = nil  │
+             └─────┴─────┘    ├───────────┤    ├─────┬─────┤
+                              │  R = nil  │    │  -  │  /  │
+                              ├─────┬─────┤    └─────┴─────┘
+                              │  -  │  /  │
+                              └─────┴─────┘
+
+The new version of node 'B', created for version 3, no longer contains any modifications. Instead, it has both L and R pointers set from its time of creation.
+
 ## License
 
 This code is licensed under the MIT License.
