@@ -90,12 +90,12 @@ module PersistentTree
       ##
       # Perform an in-order traversal of the tree, yielding for each node in the tree
       #
-      def traverse(node, query_version, &block)
+      def traverse(node, query_version, &)
         left_child = node.get_left_child(query_version)
-        Algorithms.traverse(left_child, query_version, &block) if left_child
+        Algorithms.traverse(left_child, query_version, &) if left_child
         yield node
         right_child = node.get_right_child(query_version)
-        Algorithms.traverse(right_child, query_version, &block) if right_child
+        Algorithms.traverse(right_child, query_version, &) if right_child
         nil
       end
 

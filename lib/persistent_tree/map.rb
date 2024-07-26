@@ -10,9 +10,9 @@ module PersistentTree
       @subject.respond_to?(method_name) || super
     end
 
-    def method_missing(method_name, *args, &block)
+    def method_missing(method_name, *args, &)
       if @subject.respond_to? method_name
-        @subject.send method_name, *args, &block
+        @subject.send(method_name, *args, &)
       else
         super
       end
@@ -73,9 +73,9 @@ module PersistentTree
       end
     end
 
-    def each_key(&block)
+    def each_key(&)
       if block_given?
-        keys.each(&block)
+        keys.each(&)
         self
       else
         keys.each
@@ -222,8 +222,10 @@ module PersistentTree
       default_proc = proc.is_a?(Proc) ? proc : proc.to_proc
 
       # check that we got a proc
-      raise TypeError, "can't convert #{proc.class.name} to Proc (#{proc.class.name}#to_proc gives #{default_proc.class.name})" \
-        unless default_proc.is_a?(Proc)
+      unless default_proc.is_a?(Proc)
+        raise TypeError,
+              "can't convert #{proc.class.name} to Proc (#{proc.class.name}#to_proc gives #{default_proc.class.name})"
+      end
 
       # check arity, but only if not converted from symbol
       raise TypeError, "default_proc takes two arguments (2 for #{default_proc.arity})" \
