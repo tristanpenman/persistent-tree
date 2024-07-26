@@ -218,14 +218,16 @@ module PersistentTree
       raise TypeError, "wrong default_proc type #{proc.class.name} (expected Proc)" \
         if proc.nil? || !proc.respond_to?(:to_proc)
 
-      default_proc = proc.to_proc
-      unless default_proc.is_a?(Proc)
-        raise TypeError,
-              "can't convert #{proc.class.name} to Proc (#{proc.class.name}#to_proc gives #{default_proc.class.name})"
-      end
+      # call to_proc if necessary
+      default_proc = proc.is_a?(Proc) ? proc : proc.to_proc
 
+      # check that we got a proc
+      raise TypeError, "can't convert #{proc.class.name} to Proc (#{proc.class.name}#to_proc gives #{default_proc.class.name})" \
+        unless default_proc.is_a?(Proc)
+
+      # check arity, but only if not converted from symbol
       raise TypeError, "default_proc takes two arguments (2 for #{default_proc.arity})" \
-        if default_proc.lambda? && default_proc.arity != 2
+        if default_proc.lambda? && default_proc.arity != 2 && !proc.is_a?(Symbol)
 
       @default_value = nil
       @default_proc = default_proc
