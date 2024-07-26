@@ -708,7 +708,7 @@ describe PersistentTree::Map do
             new_map = view.select { |_, value| value % mod_value }
             expected_versions = (lower_limit..version).select { |candidate| candidate % mod_value }
             expected_pairs = expected_versions.map { |v| ["key-#{v}", v] }
-            expect(new_map).to contain_exactly(*expected_pairs)
+            expect(new_map).to match_array(expected_pairs)
           end
         end
       end

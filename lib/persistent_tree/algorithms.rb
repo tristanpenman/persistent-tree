@@ -136,7 +136,7 @@ module PersistentTree
           if current_node.value > item
             if current_node.modified?
               # Create a new parent node, which will be the leaf node on the next iteration
-              leaf_node = \
+              leaf_node =
                 PersistentTree::Node.with_no_mods(leaf_node,
                                                   current_node.get_right_child(root_version),
                                                   current_node.value)

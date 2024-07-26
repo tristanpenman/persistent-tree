@@ -10,9 +10,9 @@ module PersistentTree
       @subject.respond_to?(method_name) || super
     end
 
-    def method_missing(method_name, *args, &)
+    def method_missing(method_name, *, &)
       if @subject.respond_to? method_name
-        @subject.send(method_name, *args, &)
+        @subject.send(method_name, *, &)
       else
         super
       end
